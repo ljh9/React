@@ -35,6 +35,28 @@ app.post('/register', (req, res) => {
   
 })
 
+app.post('/login', (req, res) => {
+  User.findOne({ email: req.body.email }, (err, userInfo) => {
+    if(!userInfo){
+      return res.json({
+        loginSuccess: false, 
+        message: "해당 이메일 유저 없음."
+      })
+    }
+
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if(!isMatch)
+        return res.json({ loginSuccess: false, message: "비번틀림." })
+
+      user.generateToken((err, user) => {
+        
+      })
+
+    })
+
+  })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
