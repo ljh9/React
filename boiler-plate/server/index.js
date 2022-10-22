@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!555555')
 })
 
+app.get('/api/hello', (req, res) => {
+  res.send("안녕")
+})
+
 app.post('/api/users/register', (req, res) => {
 
   const user = new User(req.body)
