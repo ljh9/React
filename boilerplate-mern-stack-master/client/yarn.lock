@@ -2468,10 +2468,10 @@
   "resolved" "https://registry.npmjs.org/ansi-styles/-/ansi-styles-5.2.0.tgz"
   "version" "5.2.0"
 
-"antd@^3.24.1":
-  "integrity" "sha512-xi35xx3Yyk3tjDEwCfS2eIpQaLLFA8MVj3ogmSWfjyscIb2QSqLwZKdTxem8SABHCHjB8lEw8b4nxls3ziaMyw=="
-  "resolved" "https://registry.npmjs.org/antd/-/antd-3.26.14.tgz"
-  "version" "3.26.14"
+"antd@^3.26.20":
+  "integrity" "sha512-VIous4ofZfxFtd9K1h9MpRX2sDDpj3QcOFi3YgIc9B/uyDli/GlLb8SWKfQfJaMkaxwatIv503dag2Tog+hiEg=="
+  "resolved" "https://registry.npmjs.org/antd/-/antd-3.26.20.tgz"
+  "version" "3.26.20"
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
     "@ant-design/icons" "~2.1.1"
