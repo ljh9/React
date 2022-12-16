@@ -1,7 +1,11 @@
+import { Row } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { FaCode } from "react-icons/fa";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../Config';
+import GridCards from '../commons/GridCards';
 import MainImage from './Sections/MainImage';
+import axios from 'axios';
+
 
 function LandingPage() {
 
@@ -13,7 +17,8 @@ function LandingPage() {
         fetch(endPoint)
         .then(response => response.json())
         .then(response => {
-            setMovies([response.results])
+            console.log(response.results)
+            setMovies(...[response.results])
             setMianMovieImage(response.results[0])
         })
     }, [])
@@ -30,6 +35,18 @@ function LandingPage() {
             <div style={{ width: '85%', margin: '1rem auto'}}>
                 <h2>Movies by latest</h2>
                 <hr/>
+                <Row gutter={[16, 16]}>
+                {Movies && Movies.map((movie, index) => (
+                    <React.Fragment key={index}>
+                        <GridCards 
+                            image={movie.poster_path ?
+                                `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
+                            movieId={movie.id}
+                            movieName={movie.original_title}
+                        />
+                    </React.Fragment>
+                ))}
+                </Row>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center'}}>
                 <button>Load More</button>
