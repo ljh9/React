@@ -38,9 +38,9 @@ function LandingPage() {
         <div style={{ width: '100%', margin: '0'}}>
         {MianMovieImage &&
             <MainImage 
-            image={`${IMAGE_BASE_URL}w1280${MianMovieImage.backdrop_path}`}
-            title={MianMovieImage.original_title}
-            text={MianMovieImage.overview} 
+                image={`${IMAGE_BASE_URL}w1280${MianMovieImage.backdrop_path}`}
+                title={MianMovieImage.original_title}
+                text={MianMovieImage.overview} 
             />
         }
             <div style={{ width: '85%', margin: '1rem auto'}}>
