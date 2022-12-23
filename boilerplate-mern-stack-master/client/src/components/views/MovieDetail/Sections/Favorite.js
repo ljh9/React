@@ -17,7 +17,7 @@ function Favorite(props) {
         Axios.post('/api/favorite/favoriteNumber', variable)
         .then(response => {
             if(response.data.success) {
-
+                
             } else {
                 alert('실패')
             }
