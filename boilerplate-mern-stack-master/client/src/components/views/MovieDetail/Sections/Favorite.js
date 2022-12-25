@@ -13,12 +13,17 @@ function Favorite(props) {
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
 
+    let variables = {
+        userFrom, 
+        movieId, 
+        movieTitle, 
+        moviePost, 
+        movieRunTime
+    }
+
     useEffect(() => {
-        let variable = {
-            userFrom, 
-            movieId
-        }
-        Axios.post('/api/favorite/favoriteNumber', variable)
+        
+        Axios.post('/api/favorite/favoriteNumber', variables)
         .then(response => {
             if(response.data.success) {
                 setFavoriteNumber(response.data.favoriteNumber)
@@ -27,7 +32,7 @@ function Favorite(props) {
             }
         })
 
-        Axios.post('/api/favorite/favorited', variable)
+        Axios.post('/api/favorite/favorited', variables)
         .then(response => {
             if(response.data.success) {
                 setFavorited(response.data.favorited)
@@ -38,9 +43,33 @@ function Favorite(props) {
 
     }, [])
 
+    const onClickFavorite = () => {
+        if(Favorited){
+            Axios.post('/api/favorite/removeFromFavorite', variables)
+            .then(response => {
+                if(response.data.success) {
+                    setFavoriteNumber(FavoriteNumber -1)
+                    setFavorited(!Favorited)
+                } else {
+                    alert('리스트 삭제 실패')
+                }
+            })
+        } else {
+            Axios.post('/api/favorite/addToFavorite', variables)
+            .then(response => {
+                if(response.data.success) {
+                    setFavoriteNumber(FavoriteNumber +1)
+                    setFavorited(!Favorited)
+                } else {
+                    alert('리스트 추가 실패')
+                }
+            })
+        }
+    }
+
   return (
     <div>
-        <button>{Favorited ? " Not Favorite" : "Add to Favorite"} {FavoriteNumber} </button>
+        <button onClick={onClickFavorite}>{Favorited ? " Not Favorite" : "Add to Favorite"} {FavoriteNumber} </button>
     </div>
   )
 }
