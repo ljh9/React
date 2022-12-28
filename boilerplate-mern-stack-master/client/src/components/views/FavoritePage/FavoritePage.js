@@ -1,14 +1,16 @@
 import Axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './favorite.css';
 
 function FavoritePage() {
+
+  const [Favorites, setFavorites] = useState([])
 
   useEffect(() => {
     Axios.post('/api/favorite/getFavoredMovei', { useFrom: localStorage.getItem('userid') })
     .then(response => {
       if(response.data.success){
-
+        setFavorites(response.data.favorites)
       } else {
         alert('실패')
       }
@@ -28,7 +30,13 @@ function FavoritePage() {
                 </tr>
             </thead>
             <tbody>
-
+              {Favorites.map((favorite, index) => (
+                <tr key={index}>
+                  <td>{favorite.movieTitle}</td>
+                  <td>{favorite.movieRunTime} mins</td>
+                  <td><button>Remove</button></td>
+                </tr>
+              ))}
             </tbody>
         </table>
     </div>
