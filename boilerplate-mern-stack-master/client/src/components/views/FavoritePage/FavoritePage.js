@@ -9,7 +9,7 @@ function FavoritePage() {
   const [Favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    Axios.post('/api/favorite/getFavoredMovei', { useFrom: localStorage.getItem('userid') })
+    Axios.post('/api/favorite/getFavoredMovei', { userFrom: localStorage.getItem('userid') })
     .then(response => {
       if(response.data.success){
         setFavorites(response.data.favorites)
@@ -18,6 +18,22 @@ function FavoritePage() {
       }
     })
   }, [])
+
+  const onClickDelete = (movieId, userFrom) => {
+    const variables = {
+      movieId, 
+      userFrom
+    }
+    Axios.post('/api/favorite/removeFromFavorite', variables)
+    .then(response => {
+      if(response.data.success) {
+
+      } else {
+        alert('실패')
+      }
+    })
+
+  }
 
   const renderCards = Favorites.map((favorite, index) => {
     const content = (
@@ -32,7 +48,7 @@ function FavoritePage() {
         <td>{favorite.movieTitle}</td>
       </Popover>
       <td>{favorite.movieRunTime} mins</td>
-      <td><button>Remove</button></td>
+      <td><button onClick={onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</button></td>
     </tr>
   })
 
