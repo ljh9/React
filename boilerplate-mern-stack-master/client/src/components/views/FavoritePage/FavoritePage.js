@@ -9,6 +9,10 @@ function FavoritePage() {
   const [Favorites, setFavorites] = useState([])
 
   useEffect(() => {
+    fetchFavoredMovie()
+  }, [])
+
+  const fetchFavoredMovie = () => {
     Axios.post('/api/favorite/getFavoredMovei', { userFrom: localStorage.getItem('userid') })
     .then(response => {
       if(response.data.success){
@@ -17,7 +21,7 @@ function FavoritePage() {
         alert('실패')
       }
     })
-  }, [])
+  }
 
   const onClickDelete = (movieId, userFrom) => {
     const variables = {
@@ -27,12 +31,11 @@ function FavoritePage() {
     Axios.post('/api/favorite/removeFromFavorite', variables)
     .then(response => {
       if(response.data.success) {
-
+        fetchFavoredMovie()
       } else {
         alert('실패')
       }
     })
-
   }
 
   const renderCards = Favorites.map((favorite, index) => {
