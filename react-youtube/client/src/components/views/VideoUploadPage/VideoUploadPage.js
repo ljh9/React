@@ -50,7 +50,19 @@ function VideoUploadPage() {
     Axios.post('/api/video/uploadfiles', formData, config)
       .then(response => {
         if(response.data.success){
+          let variable = {
+            url: response.data.url, 
+            fileName: response.data.fileName
+          }
 
+          Axios.post('/api/video/thumbnail', variable)
+          .then(response => {
+            if(response.data.success){
+
+            } else {
+              alert('실패')
+            }
+          })
         } else {
           alert('실패')
         }
