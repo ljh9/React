@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import Axios from 'axios';
+import { useSelector } from "react-redux";
+
 
 const {TextArea} = Input;
 const {Title} = Typography;
@@ -18,7 +21,7 @@ const CategoryOptions = [
 ]
 
 function VideoUploadPage() {
-
+  const user = useSelector(state => state.user);
   const [VideoTitle, setVideoTitle] = useState("")
   const [Description, setDescription] = useState("")
   const [Private, setPrivate] = useState(0)
@@ -75,12 +78,51 @@ function VideoUploadPage() {
       })
   }
 
+  const onSubmit = (event) => {
+
+    event.preventDefault();
+
+    if (user.userData && !user.userData.isAuth) {
+        return alert('Please Log in First')
+    }
+
+    if (title === "" || Description === "" ||
+        Categories === "" || FilePath === "" ||
+        Duration === "" || Thumbnail === "") {
+        return alert('Please first fill all the fields')
+    }
+
+    const variables = {
+        writer: user.userData._id,
+        title: VideoTitle,
+        description: Description,
+        privacy: Private,
+        filePath: FilePath,
+        category: Category,
+        duration: Duration,
+        thumbnail: Thumbnail
+    }
+
+    Axios.post('/api/video/uploadVideo', variables)
+        .then(response => {
+            if (response.data.success) {
+                alert('video Uploaded Successfully')
+                props.history.push('/')
+            } else {
+                alert('실패')
+            }
+        })
+
+  }
+
+
+
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <Title level={2}>Upload Video</Title>
       </div>
-      <Form onSubmit>
+      <Form onSubmit={onSubmit}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Dropzone
           onDrop={onDrop}
@@ -98,7 +140,7 @@ function VideoUploadPage() {
           </Dropzone>
           {Thumbnail !== "" &&
               <div>
-                  <img src={`http://localhost:5000/${Thumbnail}`} alt="haha" />
+                  <img src={`http://localhost:5000/${Thumbnail}`} alt="thumbnail" />
               </div>
           }
         </div>
@@ -130,7 +172,7 @@ function VideoUploadPage() {
             <option key={index} value={item.value}>{item.label}</option>
           ))}
         </select>
-        <Button type='primary' size='large' onClick>
+        <Button type='primary' size='large' onClick={onSubmit}>
           Submit
         </Button>
       </Form>
