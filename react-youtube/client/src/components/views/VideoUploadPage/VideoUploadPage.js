@@ -20,7 +20,7 @@ const CategoryOptions = [
   {value: 3, label: "Pets & Animals"}
 ]
 
-function VideoUploadPage() {
+function VideoUploadPage(props) {
   const user = useSelector(state => state.user);
   const [VideoTitle, setVideoTitle] = useState("")
   const [Description, setDescription] = useState("")
@@ -106,16 +106,16 @@ function VideoUploadPage() {
     Axios.post('/api/video/uploadVideo', variables)
         .then(response => {
             if (response.data.success) {
-                alert('video Uploaded Successfully')
-                props.history.push('/')
+                alert('성공')
+                setTimeout(() => {
+                  props.history.push('/')
+                }, 3000);
             } else {
                 alert('실패')
             }
         })
 
   }
-
-
 
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
