@@ -1,6 +1,23 @@
 import React from 'react'
 
-function Subscribe() {
+function Subscribe(props) {
+
+
+    const [SubscribeNumber, setSubscribeNumber] = useState(initialState)
+
+
+    useEffect(() => {
+        const variable = { userTo: props.userTo }
+        axios.post('/api/subscribe/subscribeNumber', variable)
+            .then(response => {
+                if (response.data.success) {
+                    setSubscribeNumber(response.data.subscribeNumber)
+                } else {
+                    alert('실팽')
+                }
+            })
+    }, [])
+
     return (
         <div>
             <button 

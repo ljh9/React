@@ -36,12 +36,12 @@ function DetailVideoPage() {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${Video.filePath}`} controls></video>
 
                         <List.Item
-                            actions={<Subscribe />}
+                            actions={<Subscribe userTo={Video.writer._id}/>}
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={Video.writer && Video.writer.image} />}
-                                title={<a href="https://ant.design">{Video.title}</a>}
-                                description={Video.description}
+                                avatar={<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}
+                                title={<a href="https://ant.design">{VideoDetail.title}</a>}
+                                description={VideoDetail.description}
                             />
                             <div></div>
                         </List.Item>
