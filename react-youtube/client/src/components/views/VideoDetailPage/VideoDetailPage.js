@@ -28,6 +28,7 @@ function DetailVideoPage() {
 
     }, [])
 
+    
     if (VideoDetail.writer) {
         return (
             <Row>
@@ -36,7 +37,7 @@ function DetailVideoPage() {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${Video.filePath}`} controls></video>
 
                         <List.Item
-                            actions={<Subscribe userTo={Video.writer._id}/>}
+                            actions={<Subscribe userTo={VideoDetail.writer._id}/>}
                         >
                             <List.Item.Meta
                                 avatar={<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}

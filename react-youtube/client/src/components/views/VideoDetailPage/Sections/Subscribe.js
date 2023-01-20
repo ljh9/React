@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios';
 
 function Subscribe(props) {
 
 
-    const [SubscribeNumber, setSubscribeNumber] = useState(initialState)
-
+    const [SubscribeNumber, setSubscribeNumber] = useState(0)
+    const [Subscribed, setSubscribed] = useState(false)
 
     useEffect(() => {
         const variable = { userTo: props.userTo }
-        axios.post('/api/subscribe/subscribeNumber', variable)
+        Axios.post('/api/subscribe/subscribeNumber', variable)
             .then(response => {
                 if (response.data.success) {
                     setSubscribeNumber(response.data.subscribeNumber)
@@ -16,17 +17,28 @@ function Subscribe(props) {
                     alert('실팽')
                 }
             })
+        
+        const subscribeVariable = { userTo: props.userTo, userFrom: localStorage.getItem('userId') }
+        Axios.post('/api/subscribe/subscribed', subscribeVariable)
+            .then(response => {
+                if (response.data.success) {
+                    setSubscribed(response.data.subcribed)
+                } else {
+                    alert('실팽')
+                }
+            })
+
     }, [])
 
     return (
         <div>
             <button 
             style={{
-                backgroundColor: '#CC0000',
+                backgroundColor: `${Subscribed ? '#CC0000' : '#AAAAAA'}`,
                 borderRadius: '4px', color: 'white',
                 padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'
             }}>
-                0
+                {SubscribeNumber} {Subscribed ? 'Subscribed' : 'Subscribe'}
             </button>
         </div>
         
