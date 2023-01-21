@@ -30,14 +30,38 @@ function Subscribe(props) {
 
     }, [])
 
+    const onSubscribe = () => {
+
+        let subscribeVariable = {
+                userTo : props.userTo,
+                userFrom : props.userFrom
+        }
+
+        if(Subscribed) {
+            Axios.post('/api/subscribe/unSubscribe', subscribeVariable)
+                .then(response => {
+                    if(response.data.success){ 
+                        setSubscribeNumber(SubscribeNumber - 1)
+                        setSubscribed(!Subscribed)
+                    } else {
+                        alert('구독실패')
+                    }
+                })
+        } else {
+        }
+
+    }
+
     return (
         <div>
             <button 
             style={{
-                backgroundColor: `${Subscribed ? '#CC0000' : '#AAAAAA'}`,
+                backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}`,
                 borderRadius: '4px', color: 'white',
                 padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'
-            }}>
+            }}
+            onClick={onSubscribe}
+            >
                 {SubscribeNumber} {Subscribed ? 'Subscribed' : 'Subscribe'}
             </button>
         </div>
