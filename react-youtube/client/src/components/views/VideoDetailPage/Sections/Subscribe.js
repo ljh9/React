@@ -44,12 +44,20 @@ function Subscribe(props) {
                         setSubscribeNumber(SubscribeNumber - 1)
                         setSubscribed(!Subscribed)
                     } else {
-                        alert('구독실패')
+                        alert('취소실패')
                     }
                 })
         } else {
+            Axios.post('/api/subscribe/subscribe', subscribeVariable)
+                .then(response => {
+                    if(response.data.success) {
+                        setSubscribeNumber(SubscribeNumber + 1)
+                        setSubscribed(!Subscribed)
+                    } else {
+                        alert('구독실패')
+                    }
+                })
         }
-
     }
 
     return (

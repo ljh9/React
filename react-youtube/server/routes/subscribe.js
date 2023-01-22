@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { Subscriber } = require("../models/Subscriber");
 
-
 router.post("/subscribeNumber", (req, res) => {
 
     Subscriber.find({ "userTo": req.body.userTo })
@@ -36,6 +35,16 @@ router.post("/unSubscribe", (req, res) => {
             if(err) return res.status(400).json({ success: false, err});
             res.status(200).json({ success: true, doc })
         })
+});
+
+router.post("/subscribe", (req, res) => {
+
+    const subscribe = new Subscriber(req.body);
+
+    subscribe.save((err, doc) => {
+        if(err) return res.json({ success: false, err })
+        return res.status(200).json({ success: true })
+    })
 });
 
 module.exports = router;
