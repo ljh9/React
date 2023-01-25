@@ -15,6 +15,7 @@ function DetailVideoPage() {
     const videoId = props.match.params.videoId
 
     const [VideoDetail, setVideoDetail] = useState([])
+    const [Comments, setComments] = useState([])
 
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function DetailVideoPage() {
 
     }, [])
 
-    
+
     if (VideoDetail.writer) {
         return (
             <Row>
@@ -47,7 +48,7 @@ function DetailVideoPage() {
                             />
                             <div></div>
                         </List.Item>
-                        <Comment />
+                        <Comment postId={videoId}/>
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
