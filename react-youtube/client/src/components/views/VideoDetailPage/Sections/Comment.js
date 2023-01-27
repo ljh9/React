@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import SingleComment from './SingleComment';
 
 function Comment(props) {
     const user = useSelector(state => state.user)
@@ -36,6 +37,9 @@ function Comment(props) {
             <br />
             <p> replies</p>
             <hr />
+
+            <SingleComment />
+
             <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                 <TextArea
                     style={{ width: '100%', borderRadius: '5px' }}
