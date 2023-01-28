@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
 
 function Comment(props) {
+
+    const videoId = props.postId;
     const user = useSelector(state => state.user)
 
 
@@ -38,7 +40,11 @@ function Comment(props) {
             <p> replies</p>
             <hr />
 
-            <SingleComment />
+            {props.CommentLists && props.CommentLists.map((comment, index) => (
+                <SingleComment comment={comment} postId={props.postId} />
+
+            ))}
+        
 
             <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                 <TextArea

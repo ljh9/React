@@ -28,6 +28,14 @@ function DetailVideoPage() {
                 }
             })
 
+        Axios.post('/api/comment/getComments', videoVariable)
+            .then(response => {
+                if (response.data.success) {
+                    setComments(response.data.comments)
+                } else {
+                    alert('Failed to get video Info')
+                }
+            })
     }, [])
 
 
@@ -48,7 +56,7 @@ function DetailVideoPage() {
                             />
                             <div></div>
                         </List.Item>
-                        <Comment postId={videoId}/>
+                        <Comment CommentLists={Comments} postId={videoId}/>
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
@@ -56,7 +64,6 @@ function DetailVideoPage() {
                 </Col> 
             </Row>
         )
-
     } else {
         return (
             <div>Loading...</div>
