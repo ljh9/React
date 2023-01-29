@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Comment, Avatar, Button, Input } from 'antd';
 const { TextArea } = Input;
+import Axios from 'axios';
+import { useSelector } from 'react-redux';
 
-function SingleComment() {
+function SingleComment(props) {
 
+    const user = useSelector(state => state.user);
     const [CommentValue, setCommentValue] = useState("")
     const [OpenReply, setOpenReply] = useState(false)
 
@@ -18,6 +21,24 @@ function SingleComment() {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        const variables = {
+            writer: user.userData._id,
+            postId: props.postId,
+            responseTo: props.comment._id,
+            content: CommentValue
+        }
+
+
+        Axios.post('/api/comment/saveComment', variables)
+            .then(response => {
+                if (response.data.success) {
+                    setCommentValue("")
+                    setOpenReply(!OpenReply)
+                    props.refreshFunction(response.data.result)
+                } else {
+                    alert('저장실패')
+                }
+            })
     }
 
     const actions = [
@@ -28,14 +49,18 @@ function SingleComment() {
         <div>
             <Comment
                 actions={actions}
-                author
+                author={props.comment.writer.name}
                 avatar={
                     <Avatar
-                        src
+                        src={props.comment.writer.image}
                         alt="image"
                     />
                 }
-                content
+                content={
+                    <p>
+                        {props.comment.content}
+                    </p>
+                }
             />
 
 

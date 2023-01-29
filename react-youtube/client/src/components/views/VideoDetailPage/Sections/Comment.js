@@ -28,6 +28,8 @@ function Comment(props) {
         axios.post('/api/comment/saveComment', variables)
             .then(response => {
                 if (response.data.success) {
+                    setComment("")
+                    props.refreshFunction(response.data.result)
                 } else {
                     alert('저장실패')
                 }
@@ -41,8 +43,9 @@ function Comment(props) {
             <hr />
 
             {props.CommentLists && props.CommentLists.map((comment, index) => (
-                <SingleComment comment={comment} postId={props.postId} />
-
+                (!comment.responseTo &&
+                    <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction}/>
+                )
             ))}
         
 
