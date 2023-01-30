@@ -37,7 +37,7 @@ function Comment(props) {
             })
     }
 
-    
+
   return (
     <div>
             <br />
@@ -48,11 +48,11 @@ function Comment(props) {
                 (!comment.responseTo &&
                     <React.Fragment>
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
-                        <ReplyComment CommentLists={props.CommentLists}/>
+                        <ReplyComment CommentLists={props.CommentLists} postId={props.postId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} />
                     </React.Fragment>
                 )
             ))}
-        
+    
 
             <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                 <TextArea
