@@ -4,6 +4,7 @@ import Axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
 import Comment from './Sections/Comment';
+import LikeDisLikes from './Sections/LikeDisLikes';
 
 function DetailVideoPage() {
 
@@ -51,8 +52,8 @@ function DetailVideoPage() {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${Video.filePath}`} controls></video>
 
                         <List.Item
-                            actions={[<Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')} />]}
-                        >
+                            actions={[<LikeDisLikes video videoId={videoId} userId={localStorage.getItem('userId')}  />,<Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')} />]}
+                        > 
                             <List.Item.Meta
                                 avatar={<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}
                                 title={<a href="https://ant.design">{VideoDetail.title}</a>}
