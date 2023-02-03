@@ -3,6 +3,10 @@ import Axios from 'axios';
 
 function LikeDisLikes(props) {
 
+    const [Likes, setLikes] = useState(0)
+    const [LikeAction, setLikeAction] = useState(null)
+    let variable = {};
+
     if (props.video) {
         variable = { videoId: props.videoId, userId: props.userId }
     } else {
@@ -13,8 +17,6 @@ function LikeDisLikes(props) {
 
         Axios.post('/api/like/getLikes', variable)
             .then(response => {
-                console.log('getLikes',response.data)
-
                 if (response.data.success) {
                     setLikes(response.data.likes.length)
                     response.data.likes.map(like => {
@@ -28,6 +30,7 @@ function LikeDisLikes(props) {
             })
     }, [])
 
+    
   return (
     <div>
         <span key="comment-basic-like">
