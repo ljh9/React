@@ -1,6 +1,33 @@
 import React from 'react'
+import Axios from 'axios';
 
-function LikeDisLikes() {
+function LikeDisLikes(props) {
+
+    if (props.video) {
+        variable = { videoId: props.videoId, userId: props.userId }
+    } else {
+        variable = { commentId: props.commentId, userId: props.userId }
+    }
+
+    useEffect(() => {
+
+        Axios.post('/api/like/getLikes', variable)
+            .then(response => {
+                console.log('getLikes',response.data)
+
+                if (response.data.success) {
+                    setLikes(response.data.likes.length)
+                    response.data.likes.map(like => {
+                        if (like.userId === props.userId) {
+                            setLikeAction('liked')
+                        }
+                    })
+                } else {
+                    alert('Failed to get likes')
+                }
+            })
+    }, [])
+
   return (
     <div>
         <span key="comment-basic-like">

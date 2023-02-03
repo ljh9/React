@@ -52,7 +52,7 @@ function DetailVideoPage() {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${Video.filePath}`} controls></video>
 
                         <List.Item
-                            actions={[<LikeDisLikes video videoId={videoId} userId={localStorage.getItem('userId')}  />,<Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')} />]}
+                            actions={[<LikeDisLikes video videoId={videoId} userId={localStorage.getItem('userId')} />,<Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem('userId')} />]}
                         > 
                             <List.Item.Meta
                                 avatar={<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}
