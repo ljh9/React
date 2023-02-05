@@ -4,7 +4,9 @@ import Axios from 'axios';
 function LikeDisLikes(props) {
 
     const [Likes, setLikes] = useState(0)
+    const [Dislikes, setDislikes] = useState(0)
     const [LikeAction, setLikeAction] = useState(null)
+    const [DislikeAction, setDislikeAction] = useState(null)
     let variable = {};
 
     if (props.video) {
@@ -28,6 +30,22 @@ function LikeDisLikes(props) {
                     alert('Failed to get likes')
                 }
             })
+
+        Axios.post('/api/like/getDislikes', variable)
+            .then(response => {
+                console.log('getDislike',response.data)
+                if (response.data.success) {
+                    setDislikes(response.data.dislikes.length)
+                    response.data.dislikes.map(dislike => {
+                        if (dislike.userId === props.userId) {
+                            setDislikeAction('disliked')
+                        }
+                    })
+                } else {
+                    alert('Failed to get dislikes')
+                }
+            })
+
     }, [])
 
     
