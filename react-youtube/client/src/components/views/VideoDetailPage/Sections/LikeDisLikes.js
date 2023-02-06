@@ -54,21 +54,21 @@ function LikeDisLikes(props) {
         <span key="comment-basic-like">
             <Tooltip title="Like">
                 <Icon type="like"
-                    theme
+                    theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
                     onClick />
             </Tooltip>
-            <span style={{ paddingLeft: '8px', cursor: 'auto' }}>111</span>
+            <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
         </span>
 
         <span key="comment-basic-dislike">
             <Tooltip title="Dislike">
                 <Icon
                     type="dislike"
-                    theme
+                    theme={DislikeAction === 'disliked' ? 'filled' : 'outlined'}
                     onClick
                 />
             </Tooltip> 
-            <span style={{ paddingLeft: '8px', cursor: 'auto' }}>222</span>
+            <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>
         </span>
     </div>
     )
