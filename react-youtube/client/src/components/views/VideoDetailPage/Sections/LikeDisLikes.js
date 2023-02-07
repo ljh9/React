@@ -48,14 +48,35 @@ function LikeDisLikes(props) {
 
     }, [])
 
-    
+
+    const onLike = () => {
+        if (LikeAction === null) {
+            Axios.post('/api/like/upLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+                        setLikes(Likes + 1)
+                        setLikeAction('liked')
+                        if (DislikeAction !== null) {
+                            setDislikeAction(null)
+                            setDislikes(Dislikes - 1)
+                        }
+                    } else {
+                        alert('실패')
+                    }
+                })
+        } else {
+        }
+
+    }
+
+
   return (
     <div>
         <span key="comment-basic-like">
             <Tooltip title="Like">
                 <Icon type="like"
                     theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
-                    onClick />
+                    onClick={onLike} />
             </Tooltip>
             <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
         </span>
@@ -65,7 +86,7 @@ function LikeDisLikes(props) {
                 <Icon
                     type="dislike"
                     theme={DislikeAction === 'disliked' ? 'filled' : 'outlined'}
-                    onClick
+                    onClick={onDisLike}
                 />
             </Tooltip> 
             <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>
