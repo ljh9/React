@@ -65,10 +65,21 @@ function LikeDisLikes(props) {
                     }
                 })
         } else {
+            Axios.post('/api/like/unLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+                        setLikes(Likes - 1)
+                        setLikeAction(null)
+                    } else {
+                        alert('실패')
+                    }
+                })
         }
-
     }
 
+    const onDisLike = () => {
+
+    }
 
   return (
     <div>
