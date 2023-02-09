@@ -78,7 +78,20 @@ function LikeDisLikes(props) {
     }
 
     const onDisLike = () => {
+        if (DislikeAction !== null) {
+            Axios.post('/api/like/unDisLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+                        setDislikes(Dislikes - 1)
+                        setDislikeAction(null)
+                    } else {
+                        alert('Failed to decrease dislike')
+                    }
+                })
 
+        } else {
+            
+        }
     }
 
   return (
