@@ -90,9 +90,22 @@ function LikeDisLikes(props) {
                 })
 
         } else {
-            
+            Axios.post('/api/like/upDisLike', variable)
+                .then(response => {
+                    if (response.data.success) {
+                        setDislikes(Dislikes + 1)
+                        setDislikeAction('disliked')
+                        if(LikeAction !== null ) {
+                            setLikeAction(null)
+                            setLikes(Likes - 1)
+                        }
+                    } else {
+                        alert('Failed to increase dislike')
+                    }
+                })
         }
     }
+    
 
   return (
     <div>
